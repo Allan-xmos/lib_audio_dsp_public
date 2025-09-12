@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import os
 from pydantic.json_schema import GenerateJsonSchema
+import re
 
 schema_path = Path(__file__).parent / "schemas"
 
@@ -19,7 +20,9 @@ class GenerateJsonSchema_simplified(GenerateJsonSchema):
 
         for key, value in json_schema['$defs'].items():
             if "title" in value:
-                value.pop("title")
+                value["title"] = _snake_name_to_title(_class_name_to_snake_name(value["title"]))
+            if "op_type" in value["properties"]:
+                value["properties"]["op_type"]["const"] = "lad." + _class_name_to_snake_name(value["properties"]["op_type"]["const"])
             if "type" in value:
                 value.pop("type")
             for this_property in value["properties"].values():
@@ -47,6 +50,58 @@ def test_json_schema():
     assert dsp_schema == committed_schema, "Generated schema does not match committed schema"
 
     os.remove(filepath)
+
+def _class_name_to_snake_name(class_name):
+    safe_name = class_name.replace("RMS", "Rms")
+    snake_name = re.sub(r'(?<!^)(?=[A-Z]|(?<!\d)(?=\d))', '_', safe_name).lower()
+    snake_name = snake_name.replace("4to_1", "4to1")
+    return snake_name
+
+def _snake_name_to_title(snake_name):
+    title = snake_name.replace("_", " ")
+    title = title.title().replace("Rms", "RMS").replace("Fir", "FIR").replace("Eq", "EQ")
+    return title
+
+
+class GenerateJsonSchema_lad_stages(GenerateJsonSchema_simplified):
+    def generate(self, schema, mode='validation'):
+        json_schema = super().generate(schema, mode=mode)
+        to_remove = []
+        forbidden_stages = ["Biquad", "CascadedBiquads", "FirDirect", "BiquadSlew", "CascadedBiquads16",
+                            "GraphicEq10b", "ParametricEq16b", "ParametricEq8b"]
+
+        for stage in forbidden_stages:
+            if stage in json_schema['$defs']:
+                json_schema['$defs'].pop(stage)
+                json_schema['$defs']["Graph"]["properties"]["nodes"]["items"]["discriminator"]["mapping"].pop(stage)
+            if stage + "Parameters" in json_schema['$defs']:
+                json_schema['$defs'].pop(stage + "Parameters")
+        for ref in json_schema['$defs']["Graph"]["properties"]["nodes"]["items"]["oneOf"]:
+            for stage in forbidden_stages:
+                if ref["$ref"].endswith(stage):
+                    to_remove.append(ref)
+        for ref in to_remove:
+            json_schema['$defs']["Graph"]["properties"]["nodes"]["items"]["oneOf"].remove(ref)
+
+        return json_schema
+
+
+def test_ladcc_schema():
+    dsp_schema = DspJson.model_json_schema(schema_generator=GenerateJsonSchema_lad_stages)
+
+    # write the JSON data to a file
+    filepath = Path(schema_path, "test_dsp_schema_ladcc.json")
+    filepath.write_text(json.dumps(dsp_schema, indent=2))
+
+    with open(Path(schema_path, "dsp_schema_ladcc.json"), "r") as f:
+        committed_schema = json.load(f)
+
+    assert dsp_schema == committed_schema, "Generated schema does not match committed schema"
+
+    os.remove(filepath)
+
+
+
 
 
 class GenerateJsonSchema_noParams(GenerateJsonSchema_simplified):
@@ -83,5 +138,6 @@ def test_no_params_schema():
 
 
 if __name__ == "__main__":
+    test_ladcc_schema()
     # test_json_schema()
-    test_no_params_schema()
+    # test_no_params_schema()

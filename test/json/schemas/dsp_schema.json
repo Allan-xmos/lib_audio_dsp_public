@@ -7,12 +7,13 @@
           "$ref": "#/$defs/Placement_Ni1o"
         },
         "op_type": {
-          "const": "Adder"
+          "const": "lad.adder"
         }
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Adder"
     },
     "Biquad": {
       "description": "A single biquad filter stage.\n\nA biquad filter is a second-order recursive filter that can implement various\nfilter types like lowpass, highpass, bandpass, etc. This stage implements a\nsingle biquad section with slew rate limiting to prevent audio artifacts\nwhen parameters are changed.",
@@ -21,7 +22,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "Biquad"
+          "const": "lad.biquad"
         },
         "parameters": {
           "$ref": "#/$defs/BiquadParameters"
@@ -29,7 +30,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Biquad"
     },
     "BiquadParameters": {
       "description": "Parameters for a biquad filter.\n\nAttributes\n----------\nfilter_type : audio_dsp.models.fields.BIQUAD_TYPES\n    The parameters of the type of biquad filter to use (e.g., biquad_lowpass, biquad_highpass, etc.)",
@@ -84,7 +86,8 @@
           },
           "description": "Type of biquad filter to implement and it's parameters."
         }
-      }
+      },
+      "title": "Biquad Parameters"
     },
     "BiquadSlew": {
       "description": "A single biquad filter stage.\n\nA biquad filter is a second-order recursive filter that can implement various\nfilter types like lowpass, highpass, bandpass, etc. This stage implements a\nsingle biquad section with slew rate limiting to prevent audio artifacts\nwhen parameters are changed.",
@@ -93,7 +96,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "BiquadSlew"
+          "const": "lad.biquad_slew"
         },
         "parameters": {
           "$ref": "#/$defs/BiquadSlewParameters"
@@ -101,7 +104,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Biquad Slew"
     },
     "BiquadSlewParameters": {
       "description": "Parameters for a slewing biquad filter.",
@@ -162,7 +166,8 @@
           "exclusiveMaximum": 31,
           "minimum": 0
         }
-      }
+      },
+      "title": "Biquad Slew Parameters"
     },
     "Bypass": {
       "description": "This stage implements a bypass. The input signal is passed through\nunchanged.",
@@ -171,12 +176,13 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "Bypass"
+          "const": "lad.bypass"
         }
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Bypass"
     },
     "CascadedBiquads": {
       "description": "8 cascaded biquad filters. This allows up to 8 second order\nbiquad filters to be run in series.\n\nThis can be used for either:\n\n- an Nth order filter built out of cascaded second order sections\n- a parametric EQ, where several biquad filters are used at once.",
@@ -185,7 +191,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "CascadedBiquads"
+          "const": "lad.cascaded_biquads"
         },
         "parameters": {
           "anyOf": [
@@ -228,7 +234,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Cascaded Biquads"
     },
     "CascadedBiquads16": {
       "description": "8 cascaded biquad filters. This allows up to 8 second order\nbiquad filters to be run in series.\n\nThis can be used for either:\n\n- an Nth order filter built out of cascaded second order sections\n- a parametric EQ, where several biquad filters are used at once.",
@@ -237,7 +244,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "CascadedBiquads16"
+          "const": "lad.cascaded_biquads_16"
         },
         "parameters": {
           "$ref": "#/$defs/CascadedBiquads16Parameters"
@@ -245,7 +252,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Cascaded Biquads 16"
     },
     "CascadedBiquads16Parameters": {
       "description": "Parameters for CascadedBiquad16 Stage.",
@@ -300,7 +308,8 @@
           "maxItems": 16,
           "minItems": 16
         }
-      }
+      },
+      "title": "Cascaded Biquads 16 Parameters"
     },
     "CascadedBiquadsParameters": {
       "description": "Parameters for CascadedBiquad Stage.\n\nAttributes\n----------\nfilters : list[BIQUAD_TYPES]\n    A list of BiquadParameters to update the cascaded biquads with.",
@@ -355,7 +364,8 @@
           "maxItems": 8,
           "minItems": 8
         }
-      }
+      },
+      "title": "Cascaded Biquads Parameters"
     },
     "Clipper": {
       "description": "Clipper stage model for limiting signal amplitude.",
@@ -364,7 +374,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "Clipper"
+          "const": "lad.clipper"
         },
         "parameters": {
           "$ref": "#/$defs/ClipperParameters"
@@ -372,7 +382,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Clipper"
     },
     "ClipperParameters": {
       "description": "Parameters for clipper stage.",
@@ -383,7 +394,8 @@
           "maximum": 24.082399717833418,
           "minimum": -162.55619765854985
         }
-      }
+      },
+      "title": "Clipper Parameters"
     },
     "CompressorParameters": {
       "description": "Parameters for compressor stage.",
@@ -412,7 +424,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Compressor Parameters"
     },
     "CompressorRMS": {
       "description": "Compressor stage based on RMS envelope of input signal.\n\nWhen the RMS envelope of the signal exceeds the threshold, the signal\namplitude is reduced by the compression ratio. The threshold sets the value\nabove which compression occurs. The ratio sets how much the signal is\ncompressed. A ratio of 1 results in no compression, while a ratio of\ninfinity results in the same behavior as a limiter.\n\nThe attack time sets how fast the compressor starts compressing. The release\ntime sets how long the signal takes to ramp up to its original level after\nthe envelope is below the threshold.",
@@ -421,7 +434,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "CompressorRMS"
+          "const": "lad.compressor_rms"
         },
         "parameters": {
           "$ref": "#/$defs/CompressorParameters"
@@ -429,7 +442,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Compressor RMS"
     },
     "CompressorSidechain": {
       "description": "Sidechain compressor stage based on RMS envelope of detect signal.\n\nThis stage requires exactly 2 input channels:\n1. The signal to be compressed\n2. The detect signal that controls the compression\n\nWhen the RMS envelope of the detect signal exceeds the threshold, the\nprocessed signal amplitude is reduced by the compression ratio. The threshold\nsets the value above which compression occurs. The ratio sets how much the\nsignal is compressed. A ratio of 1 results in no compression, while a ratio\nof infinity results in the same behavior as a limiter.\n\nThe attack time sets how fast the compressor starts compressing. The release\ntime sets how long the signal takes to ramp up to its original level after\nthe envelope is below the threshold.",
@@ -438,7 +452,7 @@
           "$ref": "#/$defs/CompressorSidechainPlacement"
         },
         "op_type": {
-          "const": "CompressorSidechain"
+          "const": "lad.compressor_sidechain"
         },
         "parameters": {
           "$ref": "#/$defs/CompressorSidechainParameters"
@@ -446,7 +460,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Compressor Sidechain"
     },
     "CompressorSidechainParameters": {
       "description": "Parameters for sidechain compressor stage.",
@@ -475,7 +490,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Compressor Sidechain Parameters"
     },
     "CompressorSidechainPlacement": {
       "additionalProperties": false,
@@ -509,7 +525,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Compressor Sidechain Placement"
     },
     "CompressorSidechainStereo": {
       "description": "Sidechain compressor stage based on RMS envelope of detect signal.\n\nThis stage requires exactly 2 input channels:\n1. The signal to be compressed\n2. The detect signal that controls the compression\n\nWhen the RMS envelope of the detect signal exceeds the threshold, the\nprocessed signal amplitude is reduced by the compression ratio. The threshold\nsets the value above which compression occurs. The ratio sets how much the\nsignal is compressed. A ratio of 1 results in no compression, while a ratio\nof infinity results in the same behavior as a limiter.\n\nThe attack time sets how fast the compressor starts compressing. The release\ntime sets how long the signal takes to ramp up to its original level after\nthe envelope is below the threshold.",
@@ -518,7 +535,7 @@
           "$ref": "#/$defs/Placement_4i2o"
         },
         "op_type": {
-          "const": "CompressorSidechainStereo"
+          "const": "lad.compressor_sidechain_stereo"
         },
         "parameters": {
           "$ref": "#/$defs/CompressorSidechainParameters"
@@ -526,7 +543,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Compressor Sidechain Stereo"
     },
     "Crossfader": {
       "description": "Crossfader stage model.",
@@ -535,7 +553,7 @@
           "$ref": "#/$defs/Placement_2i1o"
         },
         "op_type": {
-          "const": "Crossfader"
+          "const": "lad.crossfader"
         },
         "parameters": {
           "$ref": "#/$defs/CrossfaderParameters"
@@ -543,7 +561,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Crossfader"
     },
     "CrossfaderParameters": {
       "description": "Parameters for crossfader stage.",
@@ -554,7 +573,8 @@
           "maximum": 1,
           "minimum": 0
         }
-      }
+      },
+      "title": "Crossfader Parameters"
     },
     "CrossfaderStereo": {
       "description": "Stereo Crossfader stage model.",
@@ -563,7 +583,7 @@
           "$ref": "#/$defs/Placement_4i2o"
         },
         "op_type": {
-          "const": "CrossfaderStereo"
+          "const": "lad.crossfader_stereo"
         },
         "parameters": {
           "$ref": "#/$defs/CrossfaderParameters"
@@ -571,7 +591,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Crossfader Stereo"
     },
     "Delay": {
       "description": "Delay stage for delaying input signals.\n\nDelays the input signal by a specified amount. The maximum delay is set at\ncompile time via config, and the runtime delay can be set between 0 and max_delay.\nThe delay can be specified in either samples or seconds.",
@@ -580,7 +601,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "Delay"
+          "const": "lad.delay"
         },
         "parameters": {
           "$ref": "#/$defs/DelayParameters"
@@ -591,7 +612,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Delay"
     },
     "DelayConfig": {
       "description": "Configuration for delay stage.\n\nAttributes\n----------\n    max_delay: Maximum delay length in samples\n    units: Units for delay values, either \"samples\" or \"seconds\"",
@@ -610,7 +632,8 @@
             "ms"
           ]
         }
-      }
+      },
+      "title": "Delay Config"
     },
     "DelayParameters": {
       "description": "Parameters for delay stage.",
@@ -620,7 +643,8 @@
           "description": "Current delay length in the configured units",
           "minimum": 0
         }
-      }
+      },
+      "title": "Delay Parameters"
     },
     "EnvelopeDetectorParameters": {
       "description": "Parameters for an EnvelopeDetector Stage.",
@@ -637,7 +661,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Envelope Detector Parameters"
     },
     "EnvelopeDetectorPeak": {
       "description": "A stage with no outputs that measures the signal peak envelope.\n\nThe current envelope of the signal can be read out using this stage's\n``envelope`` control.\n\nAttributes\n----------\ndsp_block : :class:`audio_dsp.dsp.drc.drc.envelope_detector_peak`\n    The DSP block class; see :ref:`EnvelopeDetectorPeak`\n    for implementation details.",
@@ -646,7 +671,7 @@
           "$ref": "#/$defs/EnvelopeDetectorPlacement"
         },
         "op_type": {
-          "const": "EnvelopeDetectorPeak"
+          "const": "lad.envelope_detector_peak"
         },
         "parameters": {
           "$ref": "#/$defs/EnvelopeDetectorParameters"
@@ -654,7 +679,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Envelope Detector Peak"
     },
     "EnvelopeDetectorPlacement": {
       "additionalProperties": false,
@@ -686,7 +712,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Envelope Detector Placement"
     },
     "EnvelopeDetectorRMS": {
       "description": "A stage with no outputs that measures the signal RMS envelope.\n\nThe current envelope of the signal can be read out using this stage's\n``envelope`` control.\n\nAttributes\n----------\ndsp_block : :class:`audio_dsp.dsp.drc.drc.envelope_detector_rms`\n    The DSP block class; see :ref:`EnvelopeDetectorRMS`\n    for implementation details.",
@@ -695,7 +722,7 @@
           "$ref": "#/$defs/EnvelopeDetectorPlacement"
         },
         "op_type": {
-          "const": "EnvelopeDetectorRMS"
+          "const": "lad.envelope_detector_rms"
         },
         "parameters": {
           "$ref": "#/$defs/EnvelopeDetectorParameters"
@@ -703,7 +730,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Envelope Detector RMS"
     },
     "FirConfig": {
       "description": "Compile time configuration for a FIR Stage.",
@@ -715,7 +743,8 @@
       },
       "required": [
         "coeffs_path"
-      ]
+      ],
+      "title": "FIR Config"
     },
     "FirDirect": {
       "description": "FIR filter stage using direct form implementation.",
@@ -724,7 +753,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "FirDirect"
+          "const": "lad.fir_direct"
         },
         "config": {
           "$ref": "#/$defs/FirConfig",
@@ -734,7 +763,8 @@
       "required": [
         "placement",
         "config"
-      ]
+      ],
+      "title": "FIR Direct"
     },
     "FixedGain": {
       "description": "This stage implements a fixed gain. The input signal is multiplied\nby a gain. If the gain is changed at runtime, pops and clicks may\noccur.\n\nIf the gain needs to be changed at runtime, use a\n:class:`VolumeControl` stage instead.",
@@ -743,7 +773,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "FixedGain"
+          "const": "lad.fixed_gain"
         },
         "parameters": {
           "$ref": "#/$defs/FixedGainParameters"
@@ -751,7 +781,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Fixed Gain"
     },
     "FixedGainParameters": {
       "description": "Parameters for FixedGain Stage.",
@@ -762,7 +793,8 @@
           "maximum": 24.082399717833418,
           "minimum": -162.55619765854985
         }
-      }
+      },
+      "title": "Fixed Gain Parameters"
     },
     "Fork": {
       "description": "Forks the input signal into multiple outputs.",
@@ -771,7 +803,7 @@
           "$ref": "#/$defs/ForkPlacement"
         },
         "op_type": {
-          "const": "Fork"
+          "const": "lad.fork"
         },
         "config": {
           "$ref": "#/$defs/ForkConfig"
@@ -779,7 +811,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Fork"
     },
     "ForkConfig": {
       "description": "Compile time configuration for a Fork Stage.",
@@ -787,7 +820,8 @@
         "count": {
           "default": 1
         }
-      }
+      },
+      "title": "Fork Config"
     },
     "ForkPlacement": {
       "additionalProperties": false,
@@ -820,7 +854,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Fork Placement"
     },
     "Graph": {
       "description": "Graph object to hold the pipeline information.",
@@ -1012,7 +1047,8 @@
         "nodes",
         "inputs",
         "outputs"
-      ]
+      ],
+      "title": "Graph"
     },
     "GraphicEq10b": {
       "description": "This stage implements a Graphic EQ with 10 bands.\nEach band can be adjusted with a gain value ranging from -24 dB to +24 dB.",
@@ -1021,7 +1057,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "GraphicEq10b"
+          "const": "lad.graphic_eq_10b"
         },
         "parameters": {
           "$ref": "#/$defs/GraphicEq10bParameters"
@@ -1029,7 +1065,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Graphic EQ 10B"
     },
     "GraphicEq10bParameters": {
       "description": "Parameters for a 10-band graphic equalizer.\n\nAttributes\n----------\n    gains_db: (list[float])\n        Gain values (in dB) for each of the 10 frequency bands.\n        - Each value must be between -24 dB and +24 dB.\n        - The list must have exactly 10 elements.",
@@ -1043,7 +1080,8 @@
           },
           "minItems": 10
         }
-      }
+      },
+      "title": "Graphic EQ 10B Parameters"
     },
     "HardLimiterPeak": {
       "description": "Hard limiter stage based on peak value of signal.\n\nWhen the peak envelope of the signal exceeds the threshold, the signal\namplitude is reduced. If the signal still exceeds the threshold, it is\nclipped. The peak envelope of the signal may never exceed the threshold.\n\nThe threshold sets the value above which limiting/clipping occurs. The\nattack time sets how fast the limiter starts limiting. The release time\nsets how long the signal takes to ramp up to its original level after\nthe envelope is below the threshold.",
@@ -1052,7 +1090,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "HardLimiterPeak"
+          "const": "lad.hard_limiter_peak"
         },
         "parameters": {
           "$ref": "#/$defs/LimiterParameters"
@@ -1060,7 +1098,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Hard Limiter Peak"
     },
     "Input": {
       "description": "A set of inputs to a DSP graph.",
@@ -1073,7 +1112,8 @@
       "required": [
         "name",
         "channels"
-      ]
+      ],
+      "title": "Input"
     },
     "LimiterParameters": {
       "description": "Parameters for limiter stage.",
@@ -1096,7 +1136,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Limiter Parameters"
     },
     "LimiterPeak": {
       "description": "Limiter stage based on peak value of signal.\n\nWhen the peak envelope of the signal exceeds the threshold, the signal\namplitude is reduced. The threshold sets the value above which limiting\noccurs.\n\nThe attack time sets how fast the limiter starts limiting. The release\ntime sets how long the signal takes to ramp up to its original level after\nthe envelope is below the threshold.",
@@ -1105,7 +1146,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "LimiterPeak"
+          "const": "lad.limiter_peak"
         },
         "parameters": {
           "$ref": "#/$defs/LimiterParameters"
@@ -1113,7 +1154,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Limiter Peak"
     },
     "LimiterRMS": {
       "description": "Limiter stage based on RMS value of signal.\n\nWhen the RMS envelope of the signal exceeds the threshold, the signal\namplitude is reduced. The threshold sets the value above which limiting\noccurs.\n\nThe attack time sets how fast the limiter starts limiting. The release\ntime sets how long the signal takes to ramp up to its original level after\nthe envelope is below the threshold.",
@@ -1122,7 +1164,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "LimiterRMS"
+          "const": "lad.limiter_rms"
         },
         "parameters": {
           "$ref": "#/$defs/LimiterRMSParameters"
@@ -1130,7 +1172,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Limiter RMS"
     },
     "LimiterRMSParameters": {
       "description": "Parameters for RMS limiter stage.",
@@ -1153,7 +1196,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Limiter RMS Parameters"
     },
     "Mixer": {
       "description": "Mixes the input signals together. The mixer can be used to add signals together, or to attenuate the input signals.\nIt must have exactly one output.",
@@ -1162,7 +1206,7 @@
           "$ref": "#/$defs/Placement_Ni1o"
         },
         "op_type": {
-          "const": "Mixer"
+          "const": "lad.mixer"
         },
         "parameters": {
           "$ref": "#/$defs/MixerParameters"
@@ -1170,7 +1214,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Mixer"
     },
     "MixerParameters": {
       "description": "Parameters for Mixer Stage.",
@@ -1181,7 +1226,8 @@
           "maximum": 24.082399717833418,
           "minimum": -162.55619765854985
         }
-      }
+      },
+      "title": "Mixer Parameters"
     },
     "MonoPlacement": {
       "additionalProperties": false,
@@ -1215,7 +1261,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Mono Placement"
     },
     "NodePlacement": {
       "additionalProperties": false,
@@ -1247,7 +1294,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Node Placement"
     },
     "NoiseGate": {
       "description": "Noise gate stage for removing low-level signals.\n\nAttenuates signals that fall below a threshold, useful for removing\nbackground noise during silent passages. When the signal falls below\nthe threshold, the gain is reduced to 0 over the release time. When\nthe signal rises above the threshold, the gain is increased to 1 over\nthe attack time.",
@@ -1256,7 +1304,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "NoiseGate"
+          "const": "lad.noise_gate"
         },
         "parameters": {
           "$ref": "#/$defs/NoiseGateParameters"
@@ -1264,7 +1312,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Noise Gate"
     },
     "NoiseGateParameters": {
       "description": "Parameters for noise gate stage.",
@@ -1287,7 +1336,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Noise Gate Parameters"
     },
     "NoiseSuppressorExpander": {
       "description": "Noise suppressor expander stage.\n\nA noise suppressor that reduces the level of an audio signal when it falls below a threshold. This is also known as an expander.\n\nWhen the signal envelope falls below the threshold, the gain applied\nto the signal is reduced relative to the expansion ratio over the\nrelease time. When the envelope returns above the threshold, the\ngain applied to the signal is increased to 1 over the attack time.\n\nThe initial state of the noise suppressor is with the suppression\noff; this models a full scale signal having been present before\nt = 0.",
@@ -1296,7 +1346,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "NoiseSuppressorExpander"
+          "const": "lad.noise_suppressor_expander"
         },
         "parameters": {
           "$ref": "#/$defs/NoiseSuppressorExpanderParameters"
@@ -1304,7 +1354,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Noise Suppressor Expander"
     },
     "NoiseSuppressorExpanderParameters": {
       "description": "Parameters for noise suppressor expander stage.",
@@ -1333,7 +1384,8 @@
           "exclusiveMinimum": 0,
           "maximum": 5
         }
-      }
+      },
+      "title": "Noise Suppressor Expander Parameters"
     },
     "NthOrderFilter": {
       "description": "An Nth order filter implemented as 8 cascaded biquad filters.\nThis allows up to a 16th order filter to be implemented as a single stage.",
@@ -1342,7 +1394,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "NthOrderFilter"
+          "const": "lad.nth_order_filter"
         },
         "parameters": {
           "$ref": "#/$defs/NthOrderFilterParameters"
@@ -1350,7 +1402,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Nth Order Filter"
     },
     "NthOrderFilterParameters": {
       "description": "Parameters for NthOrderFilter Stage.",
@@ -1388,7 +1441,8 @@
           "exclusiveMaximum": 24000,
           "exclusiveMinimum": 0
         }
-      }
+      },
+      "title": "Nth Order Filter Parameters"
     },
     "Output": {
       "description": "A set of outputs from a DSP graph.",
@@ -1416,7 +1470,8 @@
       "required": [
         "name",
         "input"
-      ]
+      ],
+      "title": "Output"
     },
     "ParametricEq16b": {
       "description": "16 cascaded biquad filters. This allows up to 16 second order\nbiquad filters to be run in series as a paramertic EQ.",
@@ -1425,7 +1480,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "ParametricEq16b"
+          "const": "lad.parametric_eq_16b"
         },
         "parameters": {
           "$ref": "#/$defs/CascadedBiquads16Parameters"
@@ -1433,7 +1488,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Parametric EQ 16B"
     },
     "ParametricEq8b": {
       "description": "8 cascaded biquad filters. This allows up to 8 second order\nbiquad filters to be run in series as a paramertic EQ.",
@@ -1442,7 +1498,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "ParametricEq8b"
+          "const": "lad.parametric_eq_8b"
         },
         "parameters": {
           "anyOf": [
@@ -1485,7 +1541,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Parametric EQ 8B"
     },
     "Placement_2i1o": {
       "additionalProperties": false,
@@ -1519,7 +1576,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Placement  2I 1O"
     },
     "Placement_4i1o": {
       "additionalProperties": false,
@@ -1553,7 +1611,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Placement  4I 1O"
     },
     "Placement_4i2o": {
       "additionalProperties": false,
@@ -1587,7 +1646,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Placement  4I 2O"
     },
     "Placement_Ni1o": {
       "additionalProperties": false,
@@ -1619,7 +1679,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Placement  Ni 1O"
     },
     "ReverbPlateStereo": {
       "description": "The stereo room plate stage. This is based on Dattorro's 1997\npaper. This reverb consists of 4 allpass filters for input diffusion,\nfollowed by a figure of 8 reverb tank of allpasses, low-pass filters,\nand delays. The output is taken from multiple taps in the delay lines\nto get a desirable echo density.",
@@ -1628,7 +1689,7 @@
           "$ref": "#/$defs/StereoPlacement"
         },
         "op_type": {
-          "const": "ReverbPlateStereo"
+          "const": "lad.reverb_plate_stereo"
         },
         "parameters": {
           "$ref": "#/$defs/ReverbPlateStereoParameters"
@@ -1639,7 +1700,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Reverb Plate Stereo"
     },
     "ReverbPlateStereoConfig": {
       "description": "Compile time configuration for a ReverbPlateStereo Stage.",
@@ -1648,7 +1710,8 @@
           "default": 30,
           "description": "Set the maximum predelay in milliseconds."
         }
-      }
+      },
+      "title": "Reverb Plate Stereo Config"
     },
     "ReverbPlateStereoParameters": {
       "description": "Parameters for a ReverbPlateStereo Stage.",
@@ -1707,7 +1770,8 @@
           "maximum": 24000,
           "minimum": 0
         }
-      }
+      },
+      "title": "Reverb Plate Stereo Parameters"
     },
     "ReverbRoom": {
       "description": "Mono Reverb room model.",
@@ -1716,7 +1780,7 @@
           "$ref": "#/$defs/MonoPlacement"
         },
         "op_type": {
-          "const": "ReverbRoom"
+          "const": "lad.reverb_room"
         },
         "parameters": {
           "$ref": "#/$defs/ReverbRoomParameters"
@@ -1727,7 +1791,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Reverb Room"
     },
     "ReverbRoomConfig": {
       "description": "Compile time configuration for a ReverbRoom Stage.",
@@ -1742,7 +1807,8 @@
           "exclusiveMinimum": 0,
           "maximum": 4
         }
-      }
+      },
+      "title": "Reverb Room Config"
     },
     "ReverbRoomParameters": {
       "description": "Parameters for a ReverbRoom Stage.",
@@ -1783,7 +1849,8 @@
           "maximum": 1,
           "minimum": 0
         }
-      }
+      },
+      "title": "Reverb Room Parameters"
     },
     "ReverbRoomStereo": {
       "description": "Stereo Reverb room model.",
@@ -1792,7 +1859,7 @@
           "$ref": "#/$defs/StereoPlacement"
         },
         "op_type": {
-          "const": "ReverbRoomStereo"
+          "const": "lad.reverb_room_stereo"
         },
         "parameters": {
           "$ref": "#/$defs/ReverbRoomStereoParameters"
@@ -1803,7 +1870,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Reverb Room Stereo"
     },
     "ReverbRoomStereoConfig": {
       "description": "Compile time configuration for a ReverbRoomStereo Stage.",
@@ -1818,7 +1886,8 @@
           "exclusiveMinimum": 0,
           "maximum": 4
         }
-      }
+      },
+      "title": "Reverb Room Stereo Config"
     },
     "ReverbRoomStereoParameters": {
       "description": "Parameters for a ReverbRoomStereo Stage.",
@@ -1865,7 +1934,8 @@
           "maximum": 1,
           "minimum": 0
         }
-      }
+      },
+      "title": "Reverb Room Stereo Parameters"
     },
     "Router4to1": {
       "description": "A 4:1 Router that combines functionality of both switch and mixer.\nIt takes exactly 4 inputs and can select any combination of them\nto be mixed to a single output.",
@@ -1874,7 +1944,7 @@
           "$ref": "#/$defs/Placement_4i1o"
         },
         "op_type": {
-          "const": "Router4to1"
+          "const": "lad.router_4to1"
         },
         "parameters": {
           "$ref": "#/$defs/Router4to1Parameters"
@@ -1882,7 +1952,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Router 4To1"
     },
     "Router4to1Parameters": {
       "description": "Parameters for 4:1 router stage.\n\nAttributes\n----------\n    channel_states: [bool, bool, bool, bool]\n        List of 4 boolean values indicating which channels are active.",
@@ -1896,7 +1967,8 @@
           },
           "minItems": 4
         }
-      }
+      },
+      "title": "Router 4To1 Parameters"
     },
     "StereoPlacement": {
       "additionalProperties": false,
@@ -1930,7 +2002,8 @@
       "required": [
         "name",
         "thread"
-      ]
+      ],
+      "title": "Stereo Placement"
     },
     "Subtractor": {
       "description": "Subtract the input signals. The subtractor can be used to subtract\nsignals together. It must have exactly one output.",
@@ -1939,12 +2012,13 @@
           "$ref": "#/$defs/Placement_2i1o"
         },
         "op_type": {
-          "const": "Subtractor"
+          "const": "lad.subtractor"
         }
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Subtractor"
     },
     "Switch": {
       "description": "Switch the input to one of the outputs. The switch can be used to\nselect between different signals.",
@@ -1953,7 +2027,7 @@
           "$ref": "#/$defs/Placement_Ni1o"
         },
         "op_type": {
-          "const": "Switch"
+          "const": "lad.switch"
         },
         "parameters": {
           "$ref": "#/$defs/SwitchParameters"
@@ -1961,7 +2035,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Switch"
     },
     "SwitchParameters": {
       "description": "Parameters for Switch Stage.",
@@ -1971,7 +2046,8 @@
           "description": "Switch position. This changes the output signal to the input[index]",
           "minimum": 0
         }
-      }
+      },
+      "title": "Switch Parameters"
     },
     "SwitchSlew": {
       "description": "Switch the input to one of the outputs with slew. The switch can be used to\nselect between different signals.",
@@ -1980,7 +2056,7 @@
           "$ref": "#/$defs/Placement_Ni1o"
         },
         "op_type": {
-          "const": "SwitchSlew"
+          "const": "lad.switch_slew"
         },
         "parameters": {
           "$ref": "#/$defs/SwitchParameters"
@@ -1988,7 +2064,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Switch Slew"
     },
     "SwitchStereo": {
       "description": "Switch the input to one of the stereo pairs of outputs. The switch\ncan be used to select between different stereo signal pairs. The\ninputs should be passed in pairs, e.g. ``[0_L, 0_R, 1_L, 1_R, ...]``.\nSetting the switch position will output the nth pair.",
@@ -1997,7 +2074,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "SwitchStereo"
+          "const": "lad.switch_stereo"
         },
         "parameters": {
           "$ref": "#/$defs/SwitchParameters"
@@ -2005,7 +2082,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Switch Stereo"
     },
     "VolumeControl": {
       "description": "This stage implements a volume control. The input signal is\nmultiplied by a gain. The gain can be changed at runtime. To avoid\npops and clicks during gain changes, a slew is applied to the gain\nupdate. The stage can be muted and unmuted at runtime.",
@@ -2014,7 +2092,7 @@
           "$ref": "#/$defs/NodePlacement"
         },
         "op_type": {
-          "const": "VolumeControl"
+          "const": "lad.volume_control"
         },
         "parameters": {
           "$ref": "#/$defs/VolumeControlParameters"
@@ -2022,7 +2100,8 @@
       },
       "required": [
         "placement"
-      ]
+      ],
+      "title": "Volume Control"
     },
     "VolumeControlParameters": {
       "description": "Parameters for VolumeControl Stage.",
@@ -2039,7 +2118,8 @@
           "maximum": 1,
           "minimum": 0
         }
-      }
+      },
+      "title": "Volume Control Parameters"
     },
     "biquad_allpass": {
       "description": "Parameters for a Biquad Stage configured to allpass.",
@@ -2059,7 +2139,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Allpass"
     },
     "biquad_bandpass": {
       "description": "Parameters for a Biquad Stage configured to bandpass.",
@@ -2079,7 +2160,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Bandpass"
     },
     "biquad_bandstop": {
       "description": "Parameters for a Biquad Stage configured to bandstop.",
@@ -2099,7 +2181,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Bandstop"
     },
     "biquad_bypass": {
       "description": "Parameters for a Biquad Stage configured to bypass.",
@@ -2107,7 +2190,8 @@
         "type": {
           "const": "bypass"
         }
-      }
+      },
+      "title": "Biquad Bypass"
     },
     "biquad_constant_q": {
       "description": "Parameters for a Biquad Stage configured to constant_q.",
@@ -2133,7 +2217,8 @@
           "maximum": 24,
           "minimum": -24
         }
-      }
+      },
+      "title": "Biquad Constant Q"
     },
     "biquad_gain": {
       "description": "Parameters for a Biquad Stage configured to gain.",
@@ -2147,7 +2232,8 @@
           "maximum": 24.082399717833418,
           "minimum": -162.55619765854985
         }
-      }
+      },
+      "title": "Biquad Gain"
     },
     "biquad_highpass": {
       "description": "Parameters for a Biquad Stage configured to highpass.",
@@ -2167,7 +2253,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Highpass"
     },
     "biquad_highshelf": {
       "description": "Parameters for a Biquad Stage configured to highshelf.",
@@ -2193,7 +2280,8 @@
           "maximum": 24,
           "minimum": -24
         }
-      }
+      },
+      "title": "Biquad Highshelf"
     },
     "biquad_linkwitz": {
       "description": "Parameters for a Biquad Stage configured to linkwitz.",
@@ -2225,7 +2313,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Linkwitz"
     },
     "biquad_lowpass": {
       "description": "Parameters for a Biquad Stage configured to lowpass.",
@@ -2245,7 +2334,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Lowpass"
     },
     "biquad_lowshelf": {
       "description": "Parameters for a Biquad Stage configured to lowshelf.",
@@ -2271,7 +2361,8 @@
           "maximum": 24,
           "minimum": -24
         }
-      }
+      },
+      "title": "Biquad Lowshelf"
     },
     "biquad_mute": {
       "description": "Parameters for a Biquad Stage configured to mute.",
@@ -2279,7 +2370,8 @@
         "type": {
           "const": "mute"
         }
-      }
+      },
+      "title": "Biquad Mute"
     },
     "biquad_notch": {
       "description": "Parameters for a Biquad Stage configured to notch.",
@@ -2299,7 +2391,8 @@
           "exclusiveMinimum": 0,
           "maximum": 10
         }
-      }
+      },
+      "title": "Biquad Notch"
     },
     "biquad_peaking": {
       "description": "Parameters for a Biquad Stage configured to peaking.",
@@ -2325,7 +2418,8 @@
           "maximum": 24,
           "minimum": -24
         }
-      }
+      },
+      "title": "Biquad Peaking"
     }
   },
   "description": "A complete description of the schema of a DSP graph.",
